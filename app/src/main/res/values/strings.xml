@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Chat GPT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="buttonText">Button</string>
+    <string name="search_box_text">Enter Text Here</string>
+    <string name="button_text">Send</string>
+</resources>
