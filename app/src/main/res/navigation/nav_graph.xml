@@ -7,7 +7,19 @@
 
     <fragment
         android:id="@+id/search"
-        android:name="com.devfaiz.chatgpt.SearchFragment"
+        android:name="com.devfaiz.chatgpt.chat.SearchFragment"
         android:label="Chat GPT"
-        tools:layout="@layout/fragment_search"/>
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_to_settings"
+            app:destination="@id/settings" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.devfaiz.chatgpt.settings.Settings"
+        android:label="Settings" >
+        <action
+            android:id="@+id/action_settings_to_search"
+            app:destination="@id/search" />
+    </fragment>
 </navigation>

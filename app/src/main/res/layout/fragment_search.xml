@@ -6,13 +6,13 @@
     <data>
     <variable
         name="fragmentSearch"
-        type="com.devfaiz.chatgpt.SearchFragment" />
+        type="com.devfaiz.chatgpt.chat.SearchFragment" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SearchFragment">
+        tools:context=".chat.SearchFragment">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"

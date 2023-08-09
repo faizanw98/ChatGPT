@@ -5,7 +5,7 @@
     <data>
         <variable
             name="fragmentsettings"
-            type="com.devfaiz.chatgpt.Settings" />
+            type="com.devfaiz.chatgpt.settings.Settings" />
 
     </data>
 
