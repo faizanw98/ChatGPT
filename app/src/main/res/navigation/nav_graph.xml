@@ -11,7 +11,7 @@
         android:label="Chat GPT"
         tools:layout="@layout/fragment_search">
         <action
-            android:id="@+id/action_search_to_settings"
+            android:id="@+id/action_chat_to_settings"
             app:destination="@id/settings" />
     </fragment>
     <fragment
@@ -19,7 +19,7 @@
         android:name="com.devfaiz.chatgpt.settings.Settings"
         android:label="Settings" >
         <action
-            android:id="@+id/action_settings_to_search"
+            android:id="@+id/action_settings_to_chat"
             app:destination="@id/search" />
     </fragment>
 </navigation>
