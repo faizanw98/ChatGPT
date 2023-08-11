@@ -17,7 +17,12 @@ class ChatAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.sent_messages,parent,false)
+        val view:View
+       if(chats[chats.size-1].type==0){
+            view = LayoutInflater.from(parent.context).inflate(R.layout.sent_messages,parent,false)
+       }else{
+           view = LayoutInflater.from(parent.context).inflate(R.layout.recieved_messages,parent,false)
+       }
         return ChatViewHolder(view)
     }
 

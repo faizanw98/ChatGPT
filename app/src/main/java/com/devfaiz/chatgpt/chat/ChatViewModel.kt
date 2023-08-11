@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModel
 import com.devfaiz.chatgpt.Chat
 
 class ChatViewModel: ViewModel() {
+    val SENT_MESSAGE_STATE = 0
+    val RECEIVED_MESSAGE_STATE = 1
     private var _chats: MutableList<Chat>
     val chats: List<Chat>
         get() = _chats
@@ -15,7 +17,7 @@ class ChatViewModel: ViewModel() {
     }
 
     fun setChat(input: String){
-        val text = Chat(input)
+        val text = Chat(input,RECEIVED_MESSAGE_STATE)
         _chats.add(text)
     }
 }
