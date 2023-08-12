@@ -15,7 +15,6 @@ class ChatAdapter(
             chatView = itemView.findViewById(R.id.text_gchat_message_me)
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         val view:View
        if(chats[chats.size-1].type==0){
@@ -29,8 +28,8 @@ class ChatAdapter(
     override fun getItemCount(): Int {
         return chats.size
     }
-
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         holder.chatView.text = chats[position].text
+
     }
 }
