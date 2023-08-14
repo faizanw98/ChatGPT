@@ -13,6 +13,7 @@ import com.google.gson.JsonObject
 import retrofit2.Response
 
 class ChatViewModel: ViewModel() {
+    var state= MutableLiveData<Boolean>()
     private val SENT_MESSAGE_STATE = 0
     private var RECEIVED_MESSAGE_STATE = 1
     private var _chats = MutableLiveData<MutableList<Chat>>()
@@ -20,6 +21,7 @@ class ChatViewModel: ViewModel() {
         get() = _chats
     init {
         _chats.value = mutableListOf()
+        state.value = true
     }
     fun response(query: String) {
         val jsonObject: JsonObject = JsonObject().apply {
@@ -46,6 +48,7 @@ class ChatViewModel: ViewModel() {
                 val tempjson = gson.toJson(response.body()!!.choices.get(0))
                 val tempgson = gson.fromJson(tempjson, GptText::class.java)
                 messageReceived(tempgson.text,RECEIVED_MESSAGE_STATE)
+                state.value = false
             }
 
             override fun onFailure(call: retrofit2.Call<GptResponse>, t: Throwable) {

@@ -31,9 +31,8 @@ class SearchFragment : Fragment() {
         val chats = viewModel.chats
         val adapter = ChatAdapter(chats.value!!)
         binding.recycleView.adapter = adapter
-
-        chats.observe(viewLifecycleOwner){it->
-            binding.recycleView.layoutManager = LinearLayoutManager(context)
+        binding.recycleView.layoutManager = LinearLayoutManager(context)
+        viewModel.state.observe(viewLifecycleOwner){it->
             dataUpdated(chats, adapter)
             binding.recycleView.smoothScrollToPosition(adapter.itemCount)
         }
@@ -41,6 +40,7 @@ class SearchFragment : Fragment() {
             viewModel.setChat(text.toString(),0)
             viewModel.response(text.toString())
             dataUpdated(chats,adapter)
+            binding.recycleView.scheduleLayoutAnimation()
             text?.clear()
         }
 

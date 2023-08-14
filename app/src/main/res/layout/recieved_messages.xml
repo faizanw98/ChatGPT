@@ -20,7 +20,7 @@
             android:id="@+id/card_gchat_message_me"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#62CBBF"
+            app:cardBackgroundColor="#E462CBBF"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
             app:cardPreventCornerOverlap="false"
@@ -43,7 +43,6 @@
                     android:paddingLeft="12dp"
                     android:paddingTop="8dp"
                     android:paddingRight="12dp"
-                    android:textColor="#ffffff"
                     android:textSize="16sp" />
             </LinearLayout>
 
