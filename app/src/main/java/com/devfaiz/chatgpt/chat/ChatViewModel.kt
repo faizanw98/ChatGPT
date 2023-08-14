@@ -3,16 +3,16 @@ package com.devfaiz.chatgpt.chat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.devfaiz.chatgpt.Chat
+import com.devfaiz.chatgpt.api.GptApi
+import com.devfaiz.chatgpt.api.GptResponse
 import com.devfaiz.chatgpt.api.GptText
-import com.devfaiz.chatgpt.api.Network
+import com.devfaiz.chatgpt.api.RetrofitInstance
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class ChatViewModel: ViewModel() {
-    private val network = Network()
     private val SENT_MESSAGE_STATE = 0
     private var RECEIVED_MESSAGE_STATE = 1
     private var _chats = MutableLiveData<MutableList<Chat>>()
@@ -21,9 +21,8 @@ class ChatViewModel: ViewModel() {
     init {
         _chats.value = mutableListOf()
     }
-
-    fun postResponse(query : String) = viewModelScope.launch {
-        val jsonObject: JsonObject = JsonObject().apply{
+    fun response(query: String) {
+        val jsonObject: JsonObject = JsonObject().apply {
             addProperty("model", "text-davinci-003")
             addProperty("prompt", query)
             addProperty("temperature", 0)
@@ -32,12 +31,27 @@ class ChatViewModel: ViewModel() {
             addProperty("frequency_penalty", 0.0)
             addProperty("presence_penalty", 0.0)
         }
-         val response= network.postResponse(jsonObject)
-        val gson = Gson()
-        val tempjson = gson.toJson(response.choices.get(0))
-        val tempgson = gson.fromJson(tempjson, GptText::class.java)
-        println(response.toString())
-        messageReceived(tempgson.text,RECEIVED_MESSAGE_STATE)
+        callResponse(jsonObject)
+    }
+    private fun callResponse(jsonObject: JsonObject) {
+        val gptApi = RetrofitInstance.client.create(GptApi::class.java)
+        val call: retrofit2.Call<GptResponse> = gptApi.sendMessage(jsonObject)
+
+        call.enqueue(object : retrofit2.Callback<GptResponse> {
+            override fun onResponse(
+                call: retrofit2.Call<GptResponse>,
+                response: Response<GptResponse>
+            ) {
+               val gson = Gson()
+                val tempjson = gson.toJson(response.body()!!.choices.get(0))
+                val tempgson = gson.fromJson(tempjson, GptText::class.java)
+                messageReceived(tempgson.text,RECEIVED_MESSAGE_STATE)
+            }
+
+            override fun onFailure(call: retrofit2.Call<GptResponse>, t: Throwable) {
+                println("IOException")
+            }
+        })
     }
     private fun messageReceived(text: String, num:Int){
         _chats.value!!.add(Chat(text,num))

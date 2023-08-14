@@ -37,7 +37,7 @@
                     android:id="@+id/text_gchat_message_me"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="8sp"
                     android:maxWidth="260dp"
                     android:paddingLeft="12dp"
                     android:paddingTop="8dp"

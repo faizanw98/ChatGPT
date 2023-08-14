@@ -1,6 +1,7 @@
 package com.devfaiz.chatgpt.api
 
 import com.google.gson.JsonObject
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -10,10 +11,11 @@ interface GptApi {
         "Content-Type:application/json",
         "Authorization:Bearer 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")
     @POST("v1/completions")
-   suspend fun sendMessage(@Body json: JsonObject): GptResponse
+    fun sendMessage(@Body json: JsonObject): Call<GptResponse>
 
 }
 class Network{
-private val chatGPTClient = RetrofitInstance.getInstance().create(GptApi::class.java)
-
-suspend fun postResponse(jsonData : JsonObject) = chatGPTClient.sendMessage(jsonData)}
+     fun postResponse(jsonData : JsonObject) {
+         val gptApi = RetrofitInstance.client.create(GptApi::class.java)
+         gptApi.sendMessage(jsonData)
+     }}

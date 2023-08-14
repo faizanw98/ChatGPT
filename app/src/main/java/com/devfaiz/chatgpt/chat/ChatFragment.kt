@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.devfaiz.chatgpt.Chat
 import com.devfaiz.chatgpt.ChatAdapter
 import com.devfaiz.chatgpt.R
 import com.devfaiz.chatgpt.databinding.FragmentSearchBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 class SearchFragment : Fragment() {
     private lateinit var viewModel: ChatViewModel
@@ -30,15 +34,23 @@ class SearchFragment : Fragment() {
 
         chats.observe(viewLifecycleOwner){it->
             binding.recycleView.layoutManager = LinearLayoutManager(context)
+            dataUpdated(chats, adapter)
             binding.recycleView.smoothScrollToPosition(adapter.itemCount)
         }
         binding.textInputLayout.setEndIconOnClickListener {
             viewModel.setChat(text.toString(),0)
-            viewModel.postResponse(text.toString())
+            viewModel.response(text.toString())
+            dataUpdated(chats,adapter)
             text?.clear()
         }
 
         return binding.root
+    }
+    private fun dataUpdated(chats:LiveData<MutableList<Chat>>, adapter: ChatAdapter){
+        adapter.notifyItemInserted(chats.value!!.size-1)
+        CoroutineScope(Dispatchers.IO).run {
+            adapter.notifyDataSetChanged()
+        }
     }
 }
 

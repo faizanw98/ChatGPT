@@ -5,7 +5,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-
 object RetrofitInstance {
     private var okHttpClient = OkHttpClient
         .Builder()
@@ -15,7 +14,7 @@ object RetrofitInstance {
         .build()
 
     private const val BASE_URL = "https://api.openai.com/"
-    private val client = Retrofit
+    val client = Retrofit
             .Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)

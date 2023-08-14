@@ -9,5 +9,4 @@ data class GptText(
 )
 data class GptResponse (
     val choices : JsonArray
-
 )
