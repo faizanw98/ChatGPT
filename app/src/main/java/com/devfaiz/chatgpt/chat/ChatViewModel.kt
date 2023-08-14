@@ -57,12 +57,12 @@ class ChatViewModel: ViewModel() {
         })
     }
     private fun messageReceived(text: String, num:Int){
-        _chats.value!!.add(Chat(text,num))
+        _chats.value!!.add(Chat(num,text))
     }
 
     fun setChat(input: String, num:Int){
         if (num==0){
-        val text = Chat(input,SENT_MESSAGE_STATE)
+        val text = Chat(SENT_MESSAGE_STATE,input)
         _chats.value!!.add(text)
         }
     }
