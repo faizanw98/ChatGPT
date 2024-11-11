@@ -3,6 +3,8 @@
 This Android application is a ChatGPT-powered chatbot that allows users to interact with an AI conversational model. The app utilizes the ChatGPT API for generating responses and is built with robust architectural practices, including MVVM, to ensure scalability and maintainability.
 
 <img src="https://github.com/faizanw98/ChatGPT/assets/49359529/c932200f-cf16-471f-9be8-294441699230" alt="App Screenshot" width="300"/>
+
+
 ## Features
 
 - **Real-time Chat**: Communicate with ChatGPT and get real-time responses.
